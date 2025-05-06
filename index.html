@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QR Code Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white shadow-xl rounded-2xl p-6 max-w-md w-full text-center">
+    <h1 class="text-2xl font-bold mb-4 text-gray-800">QR Code Generator</h1>
+    
+    <input
+      type="text"
+      id="qr-input"
+      placeholder="Masukkan teks atau URL"
+      class="w-full px-4 py-2 border border-gray-300 rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+
+    <button
+      onclick="generateQRCode()"
+      class="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 transition mb-4"
+    >
+      Generate
+    </button>
+
+    <div id="qr-code" class="mt-4 flex justify-center"></div>
+
+    <a
+      id="download-link"
+      href="#"
+      download="qrcode.png"
+      class="hidden mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 transition"
+    >
+      Download QR Code
+    </a>
+  </div>
+
+  <script>
+    function generateQRCode() {
+      const qrInput = document.getElementById("qr-input").value.trim();
+      const qrContainer = document.getElementById("qr-code");
+      const downloadLink = document.getElementById("download-link");
+
+      qrContainer.innerHTML = "";
+      downloadLink.classList.add("hidden");
+
+      if (!qrInput) {
+        alert("Masukkan teks atau URL terlebih dahulu.");
+        return;
+      }
+
+      const canvas = document.createElement("canvas");
+
+      QRCode.toCanvas(canvas, qrInput, { width: 200 }, function (err) {
+        if (err) {
+          alert("Terjadi kesalahan saat membuat QR Code.");
+          return;
+        }
+        qrContainer.appendChild(canvas);
+
+        // Buat gambar dari canvas
+        const dataUrl = canvas.toDataURL("image/png");
+        downloadLink.href = dataUrl;
+        downloadLink.classList.remove("hidden");
+      });
+    }
+  </script>
+</body>
+</html>
