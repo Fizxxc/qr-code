@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Huruf ke Angka</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    textarea, input, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    #output {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      font-size: 18px;
+      color: blue;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Konversi Huruf ke Angka</h1>
+  <p>Masukkan teks (A-Z):</p>
+  <textarea id="inputText" placeholder="Contoh: Halo"></textarea>
+  <button onclick="convertToNumbers()">Konversi</button>
+  <div id="output"></div>
+
+  <a href="angka-ke-huruf.html">🔁 Gunakan Tools Angka ke Huruf</a>
+
+  <script>
+    function convertToNumbers() {
+      const text = document.getElementById('inputText').value.toUpperCase();
+      let result = '';
+      for (let char of text) {
+        if (char >= 'A' && char <= 'Z') {
+          result += (char.charCodeAt(0) - 64) + ' ';
+        } else {
+          result += char + ' '; // biarkan spasi, tanda baca tetap
+        }
+      }
+      document.getElementById('output').innerText = "Hasil: " + result.trim();
+    }
+  </script>
+</body>
+</html>
